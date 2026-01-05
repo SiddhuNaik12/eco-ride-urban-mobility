@@ -1,15 +1,42 @@
 from vehicle import ElectricCar, ElectricScooter
+from fleet_manager import FleetManager
+
 def main() -> None:
     print("Welcome to Eco Ride Urban Mobility System")
-    # mixed list of vehicles
-    vehicles = [
-        ElectricCar("EC501", "Tata Nexon EV", 90.0, "Good", 0.0, 5),
-        ElectricScooter("ES601", "Ola S1", 80.0, "Good", 0.0, 90)
-    ]
-    print("\nTrip Cost Calculation")
-    for v in vehicles:
-        # same method call, different behavior
-        cost = v.calculate_trip_cost(10)
-        print(f"{v.model} -> Trip Cost: {cost}")
+    manager = FleetManager()
+    while True:
+        print("\n1. Add Hub")
+        print("2. Add Vehicle to Hub")
+        print("3. View Fleet")
+        print("4. Exit")
+        choice = input("Enter choice: ")
+        if choice == "1":
+            hub = input("Enter hub name: ")
+            manager.add_hub(hub)
+        elif choice == "2":
+            hub = input("Enter hub name: ")
+            v_type = input("Car or Scooter: ").lower()
+            vid = input("Vehicle ID: ")
+            model = input("Model: ")
+            battery = float(input("Battery %: "))
+            status = input("Status: ")
+            price = float(input("Base price: "))
+            if v_type == "car":
+                seats = int(input("Seats: "))
+                vehicle = ElectricCar(vid, model, battery, status, price, seats)
+            elif v_type == "scooter":
+                speed = int(input("Max speed: "))
+                vehicle = ElectricScooter(vid, model, battery, status, price, speed)
+            else:
+                print("Invalid vehicle type")
+                continue
+            manager.add_vehicle_to_hub(hub, vehicle)
+        elif choice == "3":
+            manager.show_fleet()
+        elif choice == "4":
+            print("Exiting system")
+            break
+        else:
+            print("Invalid option")
 if __name__ == "__main__":
     main()
