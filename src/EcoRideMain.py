@@ -1,11 +1,14 @@
-from vehicle import Vehicle
+from vehicle import ElectricCar, ElectricScooter
 def main() -> None:
-    print("Welcome to Eco-Ride Urban Mobility System")
-    vehicle_1 = Vehicle("EV101", "Ather 450X", 85.5, "Good", 120.0)
-    print(vehicle_1)
-    vehicle_1.set_battery_percentage(90)
-    vehicle_1.set_maintenance_status("Needs Service")
-    print("\nAfter Update:")
-    print(vehicle_1)
+    print("Welcome to Eco Ride Urban Mobility System")
+    car = ElectricCar("EC301","Tata Nexon EV",90.0,"Good",15.0,5)
+    scooter = ElectricScooter("ES401","Ola S1",80.0,"Good",10.0,90)
+    distance = 10.0
+    print("\nCar Details")
+    print(car)
+    print("Trip Cost:", car.calculate_trip_cost(distance))
+    print("\nScooter Details")
+    print(scooter)
+    print("Trip Cost:", scooter.calculate_trip_cost(distance))
 if __name__ == "__main__":
     main()
