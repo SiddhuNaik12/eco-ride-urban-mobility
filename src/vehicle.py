@@ -41,8 +41,9 @@ class ElectricCar(Vehicle):
     def __init__(self,vid: str,model: str,battery: float,status: str,price: float,seats: int):
         super().__init__(vid, model, battery, status, price)
         self.seating_capacity = seats
+    #Polymorphic behaviour
     def calculate_trip_cost(self, distance: float) -> float:
-        return distance * self.get_price()
+        return 5.0+(0.5*distance)
     def __str__(self) -> str:
         return super().__str__() + f", Seats: {self.seating_capacity}"
 
@@ -50,7 +51,8 @@ class ElectricScooter(Vehicle):
     def __init__(self,vid: str,model: str,battery: float,status: str,price: float,speed_limit: int):
         super().__init__(vid, model, battery, status, price)
         self.max_speed_limit = speed_limit
-    def calculate_trip_cost(self, distance: float) -> float:
-        return distance * (self.get_price() * 0.8)
+    #Polymorphic behaviour
+    def calculate_trip_cost(self, minutes: float) -> float:
+        return 1.0 * (0.15*minutes)
     def __str__(self) -> str:
         return super().__str__() + f", Speed Limit: {self.max_speed_limit} km/h"
