@@ -9,6 +9,9 @@ def main() -> None:
         print("2. Add Vehicle to Hub")
         print("3. View Fleet")
         print("4. Exit")
+        print("5. Search vehicles by hub")
+        print("6. Search vehicles with battery > 80")
+
         choice = input("Enter choice: ")
         if choice == "1":
             hub = input("Enter hub name: ")
@@ -36,6 +39,11 @@ def main() -> None:
         elif choice == "4":
             print("Exiting system")
             break
+        elif choice == "5":
+            hub = input("Enter hub name: ")
+            manager.search_by_hub(hub)
+        elif choice == "6":
+            manager.search_by_battery(80)
         else:
             print("Invalid option")
 if __name__ == "__main__":
