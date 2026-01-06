@@ -11,7 +11,7 @@ def main() -> None:
         print("4. Exit")
         print("5. Search vehicles by hub")
         print("6. Search vehicles with battery > 80")
-
+        print("7. View vehicles by type")
         choice = input("Enter choice: ")
         if choice == "1":
             hub = input("Enter hub name: ")
@@ -44,6 +44,9 @@ def main() -> None:
             manager.search_by_hub(hub)
         elif choice == "6":
             manager.search_by_battery(80)
+        elif choice == "7":
+            manager.view_by_vehicle_type()
+
         else:
             print("Invalid option")
 if __name__ == "__main__":

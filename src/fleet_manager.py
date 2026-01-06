@@ -48,3 +48,29 @@ class FleetManager:
                 print("  No vehicles")
             for v in vehicles:
                 print(" ", v)
+    def view_by_vehicle_type(self) -> None:
+        # dictionary to group vehicles by type
+        categorized = {"Car": [],"Scooter": [] }
+        # go through all hubs and their vehicles
+        for vehicles in self.hubs.values():
+            for v in vehicles:
+                # check vehicle type and group accordingly
+                if v.__class__.__name__ == "ElectricCar":
+                    categorized["Car"].append(v)
+                elif v.__class__.__name__ == "ElectricScooter":
+                    categorized["Scooter"].append(v)
+        # display cars
+        print("\nCars:")
+        if not categorized["Car"]:
+            print("  No cars available")
+        else:
+            for car in categorized["Car"]:
+                print(" ", car)
+
+        # display scooters
+        print("\nScooters:")
+        if not categorized["Scooter"]:
+            print("  No scooters available")
+        else:
+            for scooter in categorized["Scooter"]:
+                print(" ", scooter)
