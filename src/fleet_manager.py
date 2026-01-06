@@ -11,7 +11,12 @@ class FleetManager:
         if hub_name not in self.hubs:
             print("Hub not found")
             return
-        self.hubs[hub_name].append(vehicle)
+        vehicles = self.hubs[hub_name]
+        # duplicate check using list comprehension
+        if any(v == vehicle for v in vehicles):
+            print("Duplicate vehicle ID not allowed")
+            return
+        vehicles.append(vehicle)
         print(f"Vehicle added to {hub_name}")
     def show_fleet(self) -> None:
         for hub, vehicles in self.hubs.items():

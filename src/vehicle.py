@@ -37,6 +37,11 @@ class Vehicle(ABC):
             f"Status: {self.__maintenance_status}, "
             f"Base Price: {self.__rental_price}"
         )
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Vehicle):
+            return False
+        return self.vehicle_id == other.vehicle_id
+
 class ElectricCar(Vehicle):
     def __init__(self,vid: str,model: str,battery: float,status: str,price: float,seats: int):
         super().__init__(vid, model, battery, status, price)
