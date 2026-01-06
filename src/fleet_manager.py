@@ -74,3 +74,21 @@ class FleetManager:
         else:
             for scooter in categorized["Scooter"]:
                 print(" ", scooter)
+    def fleet_analytics(self) -> None:
+        # dictionary to store count of each status
+        status_count = {
+            "Available": 0,
+            "On Trip": 0,
+            "Under Maintenance": 0
+        }
+        # go through all hubs and vehicles
+        for vehicles in self.hubs.values():
+            for v in vehicles:
+                status = v.get_status()
+                if status in status_count:
+                    status_count[status] += 1
+        # display summary
+        print("\nFleet Analytics Summary")
+        print("-----------------------")
+        for status, count in status_count.items():
+            print(f"{status}: {count}")
