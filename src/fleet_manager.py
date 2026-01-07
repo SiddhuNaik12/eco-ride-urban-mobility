@@ -92,3 +92,17 @@ class FleetManager:
         print("-----------------------")
         for status, count in status_count.items():
             print(f"{status}: {count}")
+    def sort_vehicles_in_hub(self,hub_name:str)->None:
+        if hub_name not in self.hubs:
+            print("Hub not found")
+            return
+        vehicles=self.hubs[hub_name]
+        
+        if not vehicles:
+            print("No vehicles in this hub to sort")
+            return
+        vehicles.sort(key=lambda v:v.model)
+        print(f"\nVehicles in '{hub_name}' sorted by model name:")
+        for v in vehicles:
+            print(" ",v)
+    

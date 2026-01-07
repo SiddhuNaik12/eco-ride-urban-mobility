@@ -13,6 +13,9 @@ def main() -> None:
         print("6. Search vehicles with battery > 80")
         print("7. View vehicles by type")
         print("8. Fleet analytics")
+        print("9. Sort vehicles in a hub alphabetically")
+        
+
         choice = input("Enter choice: ")
         if choice == "1":
             hub = input("Enter hub name: ")
@@ -31,6 +34,7 @@ def main() -> None:
             elif v_type == "scooter":
                 speed = int(input("Max speed: "))
                 vehicle = ElectricScooter(vid, model, battery, status, price, speed)
+            
             else:
                 print("Invalid vehicle type")
                 continue
@@ -49,6 +53,10 @@ def main() -> None:
             manager.view_by_vehicle_type()
         elif choice == "8":
             manager.fleet_analytics()
+        elif choice == "9":
+            hub = input("Enter hub name: ")
+            manager.sort_vehicles_in_hub(hub)
+        
         else:
             print("Invalid option")
 if __name__ == "__main__":
