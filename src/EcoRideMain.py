@@ -4,6 +4,7 @@ from fleet_manager import FleetManager
 def main() -> None:
     print("Welcome to Eco Ride Urban Mobility System")
     manager = FleetManager()
+    manager.load_from_csv() #load at start
     while True:
         print("\n1. Add Hub")
         print("2. Add Vehicle to Hub")
@@ -14,7 +15,9 @@ def main() -> None:
         print("7. View vehicles by type")
         print("8. Fleet analytics")
         print("9. Sort vehicles in a hub alphabetically")
-        
+        print("10. Sort vehicles by battery level")
+        print("11. Sort vehicles by fare price")
+        print("12. Save fleet data to CSV")
 
         choice = input("Enter choice: ")
         if choice == "1":
@@ -56,7 +59,12 @@ def main() -> None:
         elif choice == "9":
             hub = input("Enter hub name: ")
             manager.sort_vehicles_in_hub(hub)
-        
+        elif choice == "10":
+            manager.sort_by_battery()
+        elif choice == "11":
+            manager.sort_by_price()
+        elif choice == "12":
+            manager.save_to_csv()
         else:
             print("Invalid option")
 if __name__ == "__main__":

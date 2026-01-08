@@ -61,4 +61,5 @@ class ElectricScooter(Vehicle):
         return 1.0 * (0.15*minutes)
     def __str__(self) -> str:
         return super().__str__() + f", Speed Limit: {self.max_speed_limit} km/h"
-    
+    def get_price(self) -> float:
+        return self.__rental_price
