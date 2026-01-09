@@ -1,0 +1,22 @@
+{
+    "DownTown": [
+        {
+            "vehicle_id": "EV101",
+            "model": "Nexon EV",
+            "battery": 85.0,
+            "status": "Available",
+            "price": 15.0,
+            "type": "car",
+            "extra": 5
+        },
+        {
+            "vehicle_id": "EV201",
+            "model": "Ather 450X",
+            "battery": 88.0,
+            "status": "Available",
+            "price": 10.0,
+            "type": "scooter",
+            "extra": 85
+        }
+    ]
+}

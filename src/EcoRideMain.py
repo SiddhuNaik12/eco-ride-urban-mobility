@@ -1,10 +1,11 @@
-from vehicle import ElectricCar, ElectricScooter
 from fleet_manager import FleetManager
-
+from vehicle import ElectricCar, ElectricScooter
 def main() -> None:
     print("Welcome to Eco Ride Urban Mobility System")
     manager = FleetManager()
-    manager.load_from_csv() #load at start
+    # Load CSV or JSON data if exists
+    manager.load_from_csv()
+    manager.load_from_json()
     while True:
         print("\n1. Add Hub")
         print("2. Add Vehicle to Hub")
@@ -17,30 +18,26 @@ def main() -> None:
         print("9. Sort vehicles in a hub alphabetically")
         print("10. Sort vehicles by battery level")
         print("11. Sort vehicles by fare price")
-        print("12. Save fleet data to CSV")
-
+        print("12. Save fleet to CSV")
+        print("13. Save fleet to JSON")
         choice = input("Enter choice: ")
         if choice == "1":
             hub = input("Enter hub name: ")
             manager.add_hub(hub)
         elif choice == "2":
             hub = input("Enter hub name: ")
-            v_type = input("Car or Scooter: ").lower()
+            vtype = input("Car or Scooter: ").lower()
             vid = input("Vehicle ID: ")
             model = input("Model: ")
             battery = float(input("Battery %: "))
             status = input("Status: ")
-            price = float(input("Base price: "))
-            if v_type == "car":
+            price = float(input("Base Price: "))
+            if vtype == "car":
                 seats = int(input("Seats: "))
                 vehicle = ElectricCar(vid, model, battery, status, price, seats)
-            elif v_type == "scooter":
-                speed = int(input("Max speed: "))
-                vehicle = ElectricScooter(vid, model, battery, status, price, speed)
-            
             else:
-                print("Invalid vehicle type")
-                continue
+                speed = int(input("Max Speed: "))
+                vehicle = ElectricScooter(vid, model, battery, status, price, speed)
             manager.add_vehicle_to_hub(hub, vehicle)
         elif choice == "3":
             manager.show_fleet()
@@ -65,7 +62,9 @@ def main() -> None:
             manager.sort_by_price()
         elif choice == "12":
             manager.save_to_csv()
+        elif choice == "13":
+            manager.save_to_json()
         else:
-            print("Invalid option")
+            print("Invalid Option")
 if __name__ == "__main__":
     main()

@@ -1,65 +1,58 @@
 from abc import ABC, abstractmethod
 class Vehicle(ABC):
-    def __init__(self,vid: str,model: str,battery: float,status: str, price: float):
-        self.vehicle_id = vid
+    def __init__(self, vehicle_id: str, model: str, battery: float,
+                 status: str, rental_price: float):
+        self.vehicle_id = vehicle_id
         self.model = model
+        # private attributes
         self.__battery_percentage = None
+        self.set_battery_percentage(battery)
         self.__maintenance_status = status
-        self.__rental_price = price
-        self.update_battery(battery)
-    # -------- getters --------
+        self.__rental_price = rental_price
+    # ------------ Encapsulation Setters & Getters -------------
+    def set_battery_percentage(self, value: float):
+        if value < 0 or value > 100:
+            print("Battery percentage should be between 0 and 100")
+        else:
+            self.__battery_percentage = value
     def get_battery(self) -> float:
         return self.__battery_percentage
     def get_status(self) -> str:
         return self.__maintenance_status
     def get_price(self) -> float:
         return self.__rental_price
-    # -------- setters --------
-    def update_battery(self, battery: float) -> None:
-        if battery < 0 or battery > 100:
-            raise ValueError("Invalid battery value")
-        self.__battery_percentage = battery
-    def update_status(self, status: str) -> None:
-        self.__maintenance_status = status
-    def update_price(self, price: float) -> None:
-        if price <= 0:
-            raise ValueError("Invalid price")
-        self.__rental_price = price
-    # -------- abstraction --------
+    # ---------------- Abstract Method (UC-4) -------------------
     @abstractmethod
-    def calculate_trip_cost(self, distance: float) -> float:
+    def calculate_trip_cost(self, distance_or_minutes: float) -> float:
         pass
-    def __str__(self) -> str:
-        return (
-            f"Vehicle ID: {self.vehicle_id}, "
-            f"Model: {self.model}, "
-            f"Battery: {self.__battery_percentage}%, "
-            f"Status: {self.__maintenance_status}, "
-            f"Base Price: {self.__rental_price}"
-        )
+    # ---------------- Equality Check (UC-7) --------------------
     def __eq__(self, other) -> bool:
         if not isinstance(other, Vehicle):
             return False
         return self.vehicle_id == other.vehicle_id
-
+    # ---------------- String Printing (UC-11) ------------------
+    def __str__(self) -> str:
+        return (
+            f"Vehicle ID: {self.vehicle_id}, Model: {self.model}, "
+            f"Battery: {self.__battery_percentage}%, "
+            f"Status: {self.__maintenance_status}, "
+            f"Base Price: ₹{self.__rental_price}"
+        )
+# ---------------- Electric Car --------------------
 class ElectricCar(Vehicle):
-    def __init__(self,vid: str,model: str,battery: float,status: str,price: float,seats: int):
-        super().__init__(vid, model, battery, status, price)
-        self.seating_capacity = seats
-    #Polymorphic behaviour
+    def __init__(self, vehicle_id, model, battery, status, price, seating_capacity):
+        super().__init__(vehicle_id, model, battery, status, price)
+        self.seating_capacity = seating_capacity
     def calculate_trip_cost(self, distance: float) -> float:
-        return 5.0+(0.5*distance)
-    def __str__(self) -> str:
+        return 5.0 + (0.50 * distance)
+    def __str__(self):
         return super().__str__() + f", Seats: {self.seating_capacity}"
-
+# ---------------- Electric Scooter --------------------
 class ElectricScooter(Vehicle):
-    def __init__(self,vid: str,model: str,battery: float,status: str,price: float,speed_limit: int):
-        super().__init__(vid, model, battery, status, price)
-        self.max_speed_limit = speed_limit
-    #Polymorphic behaviour
+    def __init__(self, vehicle_id, model, battery, status, price, max_speed):
+        super().__init__(vehicle_id, model, battery, status, price)
+        self.max_speed = max_speed
     def calculate_trip_cost(self, minutes: float) -> float:
-        return 1.0 * (0.15*minutes)
-    def __str__(self) -> str:
-        return super().__str__() + f", Speed Limit: {self.max_speed_limit} km/h"
-    def get_price(self) -> float:
-        return self.__rental_price
+        return 1.0 + (0.15 * minutes)
+    def __str__(self):
+        return super().__str__() + f", Speed Limit: {self.max_speed} km/h"
